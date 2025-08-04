@@ -3,14 +3,35 @@ let compScore = 0;
 
 const choices = document.querySelectorAll(".choice");
 const msg = document.querySelector("#msg");
+const playAgainBtn = document.querySelector("#again");
 
 const userScorePara = document.querySelector("#user-score");
 const compScorePara = document.querySelector("#comp-score");
+
+const showComp = document
+const animation = document.querySelector("choice-shadow");
 
 const genCompChoice = () => {
     const options = ["Rock", "Paper", "Scissors"];
     const randIdx = Math.floor(Math.random() * 3);
     return options[randIdx];
+};
+
+const playAgain = () => {
+    userScore = 0;
+    compScore = 0;
+    userScorePara.innerText = userScore;
+    compScorePara.innerText = compScore;
+    msg.innerText = "Game reset! Let's play again.";
+    msg.style.backgroundColor = "#081b31";
+    
+    // // Add animation class
+    // msg.classList.add("restart-animate");
+
+    // // Remove it after animation completes
+    // setTimeout(() => {
+    //     msg.classList.remove("restart-animate");
+    // }, 600); // matches animation duration
 };
 
 const drawGame = () => {
@@ -38,6 +59,9 @@ const playGame = (userChoice) => {
     if(userChoice === compChoice) {
        //Draw Game
        drawGame();
+    }else if(userChoice === playAgainBtn){
+        //Play Again
+        playAgain();
     }else {
         let userWin = true;
         if(userChoice === "Rock") {
@@ -59,4 +83,8 @@ choices.forEach((choice) => {
         const userChoice = choice.getAttribute("id");
         playGame(userChoice);
     });
+});
+
+playAgainBtn.addEventListener("click", () => {
+    playAgain();
 });
